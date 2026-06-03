@@ -116,7 +116,7 @@ async function postToLinkedIn(text) {
 // ─── DAILY POST JOB ─────────────────────────────────────────────────────────
 // 9:00 AM IST = 3:30 AM UTC
 
-cron.schedule("30 3 * * *", async () => {
+cron.schedule("0 */6 * * *", async () => {
   console.log(`[${new Date().toISOString()}] Cron triggered — generating Atlassian content...`);
 
   try {
