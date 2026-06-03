@@ -24,6 +24,9 @@ for (const key of REQUIRED_ENV) {
 
 // ─── SECURITY MIDDLEWARE ─────────────────────────────────────────────────────
 
+// Render (and most cloud platforms) sit behind a reverse proxy
+app.set("trust proxy", 1);
+
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
