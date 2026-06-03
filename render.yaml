@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: atlassian-intelligence-poster
+    env: node
+    plan: starter          # Paid plan — never sleeps, cron fires reliably at 3:30 AM UTC
+    buildCommand: npm install
+    startCommand: node index.js
+    healthCheckPath: /
+    autoDeploy: false      # Require manual deploy approval — prevents accidental rollouts
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: OPENAI_API_KEY
+        sync: false        # Set in Render dashboard — never in source
+      - key: OPENAI_MODEL
+        value: gpt-4o
+      - key: LINKEDIN_ACCESS_TOKEN
+        sync: false
+      - key: LINKEDIN_COMPANY_ID
+        sync: false
+      - key: MANUAL_TRIGGER_SECRET
+        sync: false
+      - key: HISTORY_PATH
+        value: /data        # Persistent disk mount point
+
+    disk:
+      name: post-history
+      mountPath: /data
+      sizeGB: 1             # Stores post-history.json — 1 GB is vastly sufficient
