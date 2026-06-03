@@ -18,7 +18,7 @@ if (!CLIENT_ID || !CLIENT_SECRET) {
 const app = express();
 
 // Step 1 — Visit this URL in your browser
-const authUrl = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=w_organization_social%20r_organization_social%20rw_organization_admin`;
+const authUrl = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=openid%20profile%20email`;
 
 console.log("\n🔗 STEP 1: Open this URL in your browser:\n");
 console.log(authUrl);

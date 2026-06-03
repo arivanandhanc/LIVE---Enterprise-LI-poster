@@ -14,7 +14,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // ─── VALIDATE REQUIRED ENV ──────────────────────────────────────────────────
-const REQUIRED_ENV = ["LINKEDIN_ACCESS_TOKEN", "LINKEDIN_COMPANY_ID", "GROQ_API_KEY", "MANUAL_TRIGGER_SECRET"];
+const REQUIRED_ENV = [
+  "LINKEDIN_ACCESS_TOKEN",
+  "GROQ_API_KEY",
+  "MANUAL_TRIGGER_SECRET"
+];
 for (const key of REQUIRED_ENV) {
   if (!process.env[key]) {
     console.error(`[FATAL] Missing required environment variable: ${key}`);
@@ -85,7 +89,7 @@ async function postToLinkedIn(text) {
   const response = await axios.post(
     "https://api.linkedin.com/v2/ugcPosts",
     {
-      author: `urn:li:organization:${process.env.LINKEDIN_COMPANY_ID}`,
+      author: "urn:li:person:HLC2iMVLi2",
       lifecycleState: "PUBLISHED",
       specificContent: {
         "com.linkedin.ugc.ShareContent": {
