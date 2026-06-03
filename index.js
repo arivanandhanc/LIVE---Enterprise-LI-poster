@@ -14,7 +14,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // ─── VALIDATE REQUIRED ENV ──────────────────────────────────────────────────
-const REQUIRED_ENV = ["LINKEDIN_ACCESS_TOKEN", "LINKEDIN_COMPANY_ID", "OPENAI_API_KEY", "MANUAL_TRIGGER_SECRET"];
+const REQUIRED_ENV = ["LINKEDIN_ACCESS_TOKEN", "LINKEDIN_COMPANY_ID", "GROQ_API_KEY", "MANUAL_TRIGGER_SECRET"];
 for (const key of REQUIRED_ENV) {
   if (!process.env[key]) {
     console.error(`[FATAL] Missing required environment variable: ${key}`);
@@ -137,7 +137,7 @@ app.get("/", (req, res) => {
   res.json({
     status: "running",
     version: "2.0.0",
-    engine: "OpenAI GPT-4o",
+    engine: `Groq ${process.env.GROQ_MODEL || "llama-3.3-70b-versatile"}`,
     contentPillars: stats.pillars.length,
     uniqueCombinations: stats.totalUniqueCombinations,
     estimatedYearsOfContent: stats.estimatedYearsOfContent,
@@ -222,7 +222,7 @@ app.use((req, res) => {
 app.listen(PORT, () => {
   const stats = getStats();
   console.log(`LinkedIn Atlassian Intelligence Publisher running on port ${PORT}`);
-  console.log(`Engine: OpenAI ${process.env.OPENAI_MODEL || "gpt-4o"}`);
+  console.log(`Engine: Groq ${process.env.GROQ_MODEL || "llama-3.3-70b-versatile"}`);
   console.log(`Content pillars: ${stats.pillars.length}`);
   console.log(`Unique topic combinations: ${stats.totalUniqueCombinations} (~${stats.estimatedYearsOfContent} years)`);
   console.log(`Total posts published: ${stats.totalPosted}`);

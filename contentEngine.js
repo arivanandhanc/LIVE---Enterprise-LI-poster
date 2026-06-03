@@ -6,7 +6,10 @@ const fs = require("fs");
 const path = require("path");
 const { PILLARS, CONTENT_ANGLES } = require("./topicLibrary");
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const openai = new OpenAI({
+  apiKey: process.env.GROQ_API_KEY,
+  baseURL: "https://api.groq.com/openai/v1",
+});
 
 const HISTORY_FILE = process.env.HISTORY_PATH
   ? path.join(process.env.HISTORY_PATH, "post-history.json")
@@ -110,7 +113,7 @@ async function generatePost() {
   const prompt = buildPrompt(topic.pillar, topic.subtopic, topic.angle, recentContext);
 
   const completion = await openai.chat.completions.create({
-    model: process.env.OPENAI_MODEL || "gpt-4o",
+    model: process.env.GROQ_MODEL || "llama-3.3-70b-versatile",
     messages: [{ role: "user", content: prompt }],
     max_tokens: 900,
     temperature: 0.85,

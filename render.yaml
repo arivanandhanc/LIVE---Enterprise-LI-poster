@@ -11,10 +11,10 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      - key: OPENAI_API_KEY
-        sync: false        # Set in Render dashboard — never in source
-      - key: OPENAI_MODEL
-        value: gpt-4o
+      - key: GROQ_API_KEY
+        sync: false        # Set in Render dashboard — get free key at console.groq.com
+      - key: GROQ_MODEL
+        value: llama-3.3-70b-versatile
       - key: LINKEDIN_ACCESS_TOKEN
         sync: false
       - key: LINKEDIN_COMPANY_ID
