@@ -232,3 +232,19 @@ app.listen(PORT, () => {
   console.log(`Total posts published: ${stats.totalPosted}`);
   console.log(`Scheduled: 9:00 AM IST daily (3:30 AM UTC)`);
 });
+app.get("/whoami", async (req, res) => {
+  try {
+    const r = await axios.get(
+      "https://api.linkedin.com/v2/userinfo",
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.LINKEDIN_ACCESS_TOKEN}`,
+        },
+      }
+    );
+
+    res.json(r.data);
+  } catch (e) {
+    res.status(500).json(e.response?.data || e.message);
+  }
+});
